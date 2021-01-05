@@ -4,27 +4,27 @@ class MemeGenerator extends React.Component {
     state = {
         topText: "",
         bottomText: "",
-        randomImg: "https://media3.giphy.com/media/pOTZnu0qBWyAHMtxxe/giphy.gif?cid=20df0b07a68e66ec552dbf6451cdeaaef7f768d5ae8025e6&rid=giphy.gif",
+        randomImg: "https://i.imgflip.com/30b1gx.jpg",
         altMemeImages: []
     }
 
     componentDidMount() {
         console.log('Component Did Mount');
-        // fetch('https://api.imgflip.com/get_memes')
-        //     .then(response => response.json())
-        //     .then(response => {
-        //         const {memes} = response.data;
-        //         console.log(memes[0]);
-        //         this.setState({ altMemeImages: memes })
-        // });
-        // console.log(this.state.randomImg);
-        fetch('https://api.giphy.com/v1/gifs/random?api_key=J4lNqC0UDXDmMDfzt7pyQZAfARVRICS7&tag=&rating=pg-13')
+        fetch('https://api.imgflip.com/get_memes')
             .then(response => response.json())
             .then(response => {
-                const { memes } = response.data.url;
-                this.setState({ altMemeImages : memes })
-                console.log(response.data.url);
-            })
+                const {memes} = response.data;
+                console.log(memes[0]);
+                this.setState({ altMemeImages: memes })
+        });
+        console.log(this.state.randomImg);
+        // fetch('https://api.giphy.com/v1/gifs/random?api_key=J4lNqC0UDXDmMDfzt7pyQZAfARVRICS7&tag=&rating=pg-13')
+        //     .then(response => response.json())
+        //     .then(response => {
+        //         const { memes } = response.data.url;
+        //         this.setState({ altMemeImages : memes })
+        //         console.log(response.data.url);
+        //     })
     }       
 
     handleOnChange =(event) => {
@@ -36,26 +36,26 @@ class MemeGenerator extends React.Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault();
-        // const altImage = this.state.altMemeImages;
-        // const randomNum = Math.floor(Math.random()*altImage.length);
-        // const selectRandomImg = altImage[randomNum].url;
-        // this.setState({
-        //     randomImg: selectRandomImg,
-        //     topText: "",
-        //     bottomText: "" 
-        // });
+        const altImage = this.state.altMemeImages;
+        const randomNum = Math.floor(Math.random()*altImage.length);
+        const selectRandomImg = altImage[randomNum].url;
+        this.setState({
+            randomImg: selectRandomImg,
+            topText: "",
+            bottomText: "" 
+        });
 
-        fetch('https://api.giphy.com/v1/gifs/random?api_key=J4lNqC0UDXDmMDfzt7pyQZAfARVRICS7&tag=&rating=pg-13')
-        .then(response => response.json())
-        .then(response => {
-            const memes = response.data.fixed_height_downsampled_url;
-            console.log(response.data);
-            this.setState({ 
-                randomImg : memes,
-                topText: "",
-                bottomText: ""
-            })
-        })
+        // fetch('https://api.giphy.com/v1/gifs/random?api_key=J4lNqC0UDXDmMDfzt7pyQZAfARVRICS7&tag=&rating=pg-13')
+        // .then(response => response.json())
+        // .then(response => {
+        //     const memes = response.data.fixed_height_downsampled_url;
+        //     console.log(response.data);
+        //     this.setState({ 
+        //         randomImg : memes,
+        //         topText: "",
+        //         bottomText: ""
+        //     })
+        // })
     }
 
     render() {
